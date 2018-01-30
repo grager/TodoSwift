@@ -8,7 +8,7 @@
 
 import UIKit
 import NotificationCenter
-import TodoSwiftKit
+import TaskService
 
 
 class TodayViewController: UIViewController, NCWidgetProviding

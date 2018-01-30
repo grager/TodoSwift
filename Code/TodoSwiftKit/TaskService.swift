@@ -17,19 +17,19 @@ public class TaskService
         let managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
         
         // Trim content
-        let trimmedContent = trimmedContentFrom(content)
+        let trimmedContent = trimmedContentFrom(string: content)
         if trimmedContent == "" {
             return nil
         }
         
         // Create task
-        let task = NSEntityDescription.insertNewObjectForEntityForName(TaskEntityName, inManagedObjectContext: managedObjectContext) as! Task
+        let task = NSEntityDescription.insertNewObject(forEntityName: TaskEntityName, into: managedObjectContext) as! Task
         task.createdAt = NSDate()
         task.completed = false
         task.label = trimmedContent
         
         // Save managed object context
-        saveContext(managedObjectContext)
+        saveContext(context: managedObjectContext)
         
         return task
     }
@@ -39,18 +39,18 @@ public class TaskService
         let managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
         
         // Trim content
-        let trimmedContent = trimmedContentFrom(content)
+        let trimmedContent = trimmedContentFrom(string: content)
         
         // Delete task if content is empty, update it otherwise
-        if trimmedContent.characters.count == 0
+        if trimmedContent.count == 0
         {
-            managedObjectContext.deleteObject(task)
-            saveContext(managedObjectContext)
+            managedObjectContext.delete(task)
+            saveContext(context: managedObjectContext)
         }
         else
         {
             task.label = trimmedContent
-            saveContext(task.managedObjectContext)
+            saveContext(context: task.managedObjectContext)
         }
     }
     
@@ -59,27 +59,27 @@ public class TaskService
         let managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
         
         // Delete task from main managed object context
-        managedObjectContext.deleteObject(task)
+        managedObjectContext.delete(task)
         
         // Save
-        saveContext(managedObjectContext)
+        saveContext(context: managedObjectContext)
     }
     
     public class func toggleTask(task: Task)
     {
-        task.completed = !task.completed.boolValue
-        saveContext(task.managedObjectContext)
+        task.completed = !task.completed.boolValue as NSNumber
+        saveContext(context: task.managedObjectContext)
     }
     
     public class func taskList(predicate: NSPredicate?) -> [AnyObject]
     {
         let managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
         
-        let fetchRequest = NSFetchRequest(entityName: TaskEntityName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: TaskEntityName)
         fetchRequest.predicate = predicate
         
         do {
-            return try managedObjectContext.executeFetchRequest(fetchRequest)
+            return try managedObjectContext.fetch(fetchRequest) as [AnyObject]
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -89,7 +89,7 @@ public class TaskService
     
     public class func clearCompletedTasks()
     {
-        clearTasks(Task.completedPredicate())
+        clearTasks(predicate: Task.completedPredicate())
     }
     
     private class func clearTasks(predicate: NSPredicate?)
@@ -97,16 +97,16 @@ public class TaskService
         let managedObjectContext = CoreDataController.sharedInstance.managedObjectContext
         
         // Build a fetch request to retrieve completed task
-        let fetchRequest = NSFetchRequest(entityName: TaskEntityName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: TaskEntityName)
         fetchRequest.predicate = predicate
         
         // Perform query
         do {
-            let tasks = try managedObjectContext.executeFetchRequest(fetchRequest)
+            let tasks = try managedObjectContext.fetch(fetchRequest)
             for task in tasks {
-                managedObjectContext.deleteObject(task as! NSManagedObject)
+                managedObjectContext.delete(task as! NSManagedObject)
             }
-            saveContext(managedObjectContext)
+            saveContext(context: managedObjectContext)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -114,7 +114,7 @@ public class TaskService
     
     private class func trimmedContentFrom(string: String) -> String
     {
-        return string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        return string.trimmingCharacters(in: NSCharacterSet.whitespaces)
     }
     
     private class func saveContext(context: NSManagedObjectContext?)
