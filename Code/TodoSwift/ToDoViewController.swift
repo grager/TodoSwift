@@ -47,6 +47,8 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         segmentedControl.setTitle(NSLocalizedString("todo_list.filter.active", comment: "Filter: Active"), forSegmentAt: 1)
         segmentedControl.setTitle(NSLocalizedString("todo_list.filter.completed", comment: "Filter: Completed"), forSegmentAt: 2)
         
+        taskTextField.delegate = self
+        
         // Refresh
         refreshData()
         refreshUI()
@@ -168,8 +170,16 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     
     // MARK: - UITextFieldDelegate methods
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        NSLog("textFieldDidEndEditing")
+
+    }
+    
     private func textFieldShouldReturn(textField: UITextField) -> Bool
     {
+        NSLog("textFieldShouldReturn")
+        return true
+        
         guard let content = textField.text else {
             return false
         }
