@@ -47,11 +47,16 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         segmentedControl.setTitle(NSLocalizedString("todo_list.filter.active", comment: "Filter: Active"), forSegmentAt: 1)
         segmentedControl.setTitle(NSLocalizedString("todo_list.filter.completed", comment: "Filter: Completed"), forSegmentAt: 2)
         
-        taskTextField.delegate = self
-        
+        taskTextField.addTarget(self, action: #selector(enterPressed), for: .editingDidEndOnExit)
+
         // Refresh
         refreshData()
         refreshUI()
+    }
+    
+    func enterPressed(){
+        //do something with typed text if needed
+        taskTextField.resignFirstResponder()
     }
     
     // MARK: - Data management
@@ -173,31 +178,29 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     func textFieldDidEndEditing(_ textField: UITextField) {
         NSLog("textFieldDidEndEditing")
 
-    }
+
     
-    private func textFieldShouldReturn(textField: UITextField) -> Bool
-    {
-        NSLog("textFieldShouldReturn")
-        return true
+    //private func textFieldShouldReturn(textField: UITextField) -> Bool
+    //{
+      //  NSLog("textFieldShouldReturn")
+        //return true
         
-        guard let content = textField.text else {
-            return false
-        }
-        
+        let content = self.taskTextField.text
+    
         // Create a task if entered string is not empty
         
-        if(content.count > 0)
+        if((content) != nil)
         {
-            TaskService.createTask(content: content)
+            TaskService.createTask(content: content!)
         }
         
         // Reset text field
-        textField.text = ""
+        taskTextField.text = ""
         
         // Close keyboard
-        textField.resignFirstResponder()
+        taskTextField.resignFirstResponder()
         
-        return true
+        refreshData()
     }
     
     // MARK: - ToDoCellDelegate methdos

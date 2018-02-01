@@ -185,7 +185,6 @@
                                     <segment title="Completed"/>
                                 </segments>
                                 <connections>
-                                    <action selector="filter:" destination="Jn4-eo-HUF" eventType="valueChanged" id="8bx-Di-3YV"/>
                                     <action selector="filterWithSender:" destination="Jn4-eo-HUF" eventType="valueChanged" id="XE6-aC-sex"/>
                                 </connections>
                             </segmentedControl>
