@@ -169,8 +169,8 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Jn4-eo-HUF" id="14Z-4T-Jd9"/>
-                            <outlet property="delegate" destination="Jn4-eo-HUF" id="C3f-qq-qFl"/>
+                            <outlet property="dataSource" destination="Jn4-eo-HUF" id="Raj-w3-7ZM"/>
+                            <outlet property="delegate" destination="Jn4-eo-HUF" id="NLK-mt-ch8"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="D71-og-wQN">

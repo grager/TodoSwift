@@ -121,7 +121,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     
     // MARK: - UITableViewDataSource methods
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    override func numberOfSections(in tableView: UITableView) -> Int
     {
         guard let sections = frc.sections else {
             return 0
@@ -129,13 +129,13 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         return sections.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let sectionInfo = frc.sections![section] as NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let task = frc.object(at: indexPath as IndexPath) as! Task
         
@@ -153,7 +153,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         return true
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle
     {
         return UITableViewCellEditingStyle.delete
     }
@@ -191,7 +191,48 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         
         if((content) != nil)
         {
-            TaskService.createTask(content: content!)
+            // we will create a task and then push it the service
+            let createdTask = TaskService.createTask(content: content!)
+            
+            let createTaskAsDictionary = ["title":createdTask?.label ?? "empty","completed":false] as [String : Any]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: createTaskAsDictionary, options: .prettyPrinted)
+                
+                let requestURL = URL.init(string: "rest/todos")
+                let request = URLRequest.init(url: requestURL!)
+                
+                let uploadtask = URLSession.shared.uploadTask(with: request, from: jsonData) { data, response, error in
+                    if let error = error {
+                        print ("error: \(error)")
+                        return
+                    }
+                    guard let response = response as? HTTPURLResponse,
+                        (200...299).contains(response.statusCode) else {
+                            print ("server error")
+                            return
+                    }
+                    if let mimeType = response.mimeType,
+                        mimeType == "application/json",
+                        let data = data,
+                        let dataString = String(data: data, encoding: .utf8) {
+                        print ("got data: \(dataString)")
+                    }
+                }
+                uploadtask.resume()
+
+                // here "jsonData" is the dictionary encoded in JSON data
+                
+                //let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
+                // here "decoded" is of type `Any`, decoded from JSON data
+                
+                // you can now cast it with the right type
+                //if let dictFromJSON = decoded as? [String:String] {
+                    // use dictFromJSON
+                //}
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         // Reset text field
