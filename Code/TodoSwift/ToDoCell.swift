@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import TodoSwiftKit
-import TodoSwiftAccessibility
 
 let ToDoCellIdentifier = "ToDoCellID"
 
@@ -30,7 +28,7 @@ class ToDoCell: UITableViewCell, UITextFieldDelegate
     override func awakeFromNib()
     {
         // No selection style required
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.selectionStyle = UITableViewCellSelectionStyle.none
     }
     
     // MARK: - Configuration
@@ -41,7 +39,7 @@ class ToDoCell: UITableViewCell, UITextFieldDelegate
         self.task = task
         
         // Set button state
-        completionButton.selected = task.completed.boolValue
+        completionButton.isSelected = task.completed.boolValue
         
         // Set content
         contentTextField.text = task.label
@@ -54,15 +52,15 @@ class ToDoCell: UITableViewCell, UITextFieldDelegate
     
     @IBAction func toggleCompleted()
     {
-        delegate?.toDoCell(self, didToggleCompletionForTask: task)
+        delegate?.toDoCell(cell: self, didToggleCompletionForTask: task)
     }
     
     // MARK: - UITextFieldDelegate methods
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    private func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         // Notify delegate
-        delegate?.toDoCell(self, didEditContent: textField.text, forTask: task)
+        delegate?.toDoCell(cell: self, didEditContent: textField.text, forTask: task)
         
         // Close keyboard
         textField.resignFirstResponder()

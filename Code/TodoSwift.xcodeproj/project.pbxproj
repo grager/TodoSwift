@@ -12,27 +12,24 @@
 		0034AD551BE4C5BE002E5334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0034AD531BE4C5BE002E5334 /* Main.storyboard */; };
 		0034AD5A1BE4C5BE002E5334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0034AD591BE4C5BE002E5334 /* Assets.xcassets */; };
 		0034AD5D1BE4C5BE002E5334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0034AD5B1BE4C5BE002E5334 /* LaunchScreen.storyboard */; };
-		0034AD881BE4C612002E5334 /* TodoSwiftKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0034AD871BE4C612002E5334 /* TodoSwiftKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0034AD9A1BE4C612002E5334 /* TodoSwiftKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0034AD851BE4C612002E5334 /* TodoSwiftKit.framework */; };
 		0034AD9B1BE4C612002E5334 /* TodoSwiftKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0034AD851BE4C612002E5334 /* TodoSwiftKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0034ADA71BE4C8DB002E5334 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADA61BE4C8DB002E5334 /* ToDoCell.swift */; };
-		0034ADAA1BE62026002E5334 /* TodoSwift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADA81BE62026002E5334 /* TodoSwift.xcdatamodeld */; };
-		0034ADB61BE620A4002E5334 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADB41BE620A4002E5334 /* Task.swift */; };
-		0034ADBA1BE62124002E5334 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADB91BE62124002E5334 /* Task+CoreDataProperties.swift */; };
 		0034ADBC1BE6232C002E5334 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0034ADBB1BE6232C002E5334 /* CoreData.framework */; };
-		0034ADBF1BE62B63002E5334 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADBE1BE62B63002E5334 /* TaskService.swift */; };
-		0034ADC11BE62C41002E5334 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADC01BE62C41002E5334 /* CoreDataController.swift */; };
 		0034ADC41BE6359B002E5334 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0034ADC61BE6359B002E5334 /* Localizable.strings */; };
 		0034ADCD1BE65DA5002E5334 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0034ADCC1BE65DA5002E5334 /* NotificationCenter.framework */; };
-		0034ADD01BE65DA5002E5334 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADCF1BE65DA5002E5334 /* TodayViewController.swift */; };
 		0034ADD31BE65DA5002E5334 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0034ADD11BE65DA5002E5334 /* MainInterface.storyboard */; };
 		004565E31BEBAEB400B426A6 /* TodoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004565E21BEBAEB400B426A6 /* TodoSwiftUITests.swift */; };
 		004566C21BECC46200B426A6 /* TodoSwiftAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 004566C11BECC46200B426A6 /* TodoSwiftAccessibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		004566C61BECC46200B426A6 /* TodoSwiftAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004566BF1BECC46200B426A6 /* TodoSwiftAccessibility.framework */; };
 		004566C71BECC46200B426A6 /* TodoSwiftAccessibility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 004566BF1BECC46200B426A6 /* TodoSwiftAccessibility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		004566CE1BECC47A00B426A6 /* Accessiblity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004566CD1BECC47A00B426A6 /* Accessiblity.swift */; };
-		004566D21BECC69B00B426A6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 004566D41BECC69B00B426A6 /* Localizable.strings */; };
 		00ABFFB41BE663A10000A8E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00ABFFB31BE663A10000A8E0 /* Localizable.strings */; };
+		45F563EA20207C5700BB3D93 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADC01BE62C41002E5334 /* CoreDataController.swift */; };
+		45F563EB20207C5D00BB3D93 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADB41BE620A4002E5334 /* Task.swift */; };
+		45F563EC20207C6100BB3D93 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADB91BE62124002E5334 /* Task+CoreDataProperties.swift */; };
+		45F563ED20207C6900BB3D93 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADBE1BE62B63002E5334 /* TaskService.swift */; };
+		45F563EE20207C6D00BB3D93 /* TodoSwift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0034ADA81BE62026002E5334 /* TodoSwift.xcdatamodeld */; };
+		45F563EF20207C8500BB3D93 /* Accessiblity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004566CD1BECC47A00B426A6 /* Accessiblity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,10 +126,10 @@
 		004566C11BECC46200B426A6 /* TodoSwiftAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoSwiftAccessibility.h; sourceTree = "<group>"; };
 		004566C31BECC46200B426A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		004566CD1BECC47A00B426A6 /* Accessiblity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessiblity.swift; sourceTree = "<group>"; };
-		004566D31BECC69B00B426A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		00ABFFB11BE6634D0000A8E0 /* TodoSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TodoSwift.entitlements; sourceTree = "<group>"; };
 		00ABFFB21BE663760000A8E0 /* TodoSwift Today Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "TodoSwift Today Extension.entitlements"; sourceTree = "<group>"; };
 		00ABFFB31BE663A10000A8E0 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		45F563F12020928A00BB3D93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				004566CD1BECC47A00B426A6 /* Accessiblity.swift */,
-				004566D41BECC69B00B426A6 /* Localizable.strings */,
 				004566D11BECC68C00B426A6 /* Supporting Files */,
 			);
 			path = TodoSwiftAccessibility;
@@ -289,7 +285,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0034AD881BE4C612002E5334 /* TodoSwiftKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +495,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				004566D21BECC69B00B426A6 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,8 +505,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45F563EF20207C8500BB3D93 /* Accessiblity.swift in Sources */,
 				0034AD521BE4C5BE002E5334 /* ToDoViewController.swift in Sources */,
+				45F563EE20207C6D00BB3D93 /* TodoSwift.xcdatamodeld in Sources */,
 				0034AD501BE4C5BE002E5334 /* AppDelegate.swift in Sources */,
+				45F563EB20207C5D00BB3D93 /* Task.swift in Sources */,
+				45F563ED20207C6900BB3D93 /* TaskService.swift in Sources */,
+				45F563EA20207C5700BB3D93 /* CoreDataController.swift in Sources */,
+				45F563EC20207C6100BB3D93 /* Task+CoreDataProperties.swift in Sources */,
 				0034ADA71BE4C8DB002E5334 /* ToDoCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,11 +521,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0034ADBF1BE62B63002E5334 /* TaskService.swift in Sources */,
-				0034ADB61BE620A4002E5334 /* Task.swift in Sources */,
-				0034ADC11BE62C41002E5334 /* CoreDataController.swift in Sources */,
-				0034ADBA1BE62124002E5334 /* Task+CoreDataProperties.swift in Sources */,
-				0034ADAA1BE62026002E5334 /* TodoSwift.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,7 +528,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0034ADD01BE65DA5002E5334 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +543,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				004566CE1BECC47A00B426A6 /* Accessiblity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +597,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				0034ADC51BE6359B002E5334 /* Base */,
+				45F563F12020928A00BB3D93 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -614,14 +608,6 @@
 				0034ADD21BE65DA5002E5334 /* Base */,
 			);
 			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		004566D41BECC69B00B426A6 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				004566D31BECC69B00B426A6 /* Base */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -728,7 +714,6 @@
 		0034AD781BE4C5BE002E5334 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TodoSwift/TodoSwift.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -747,7 +732,6 @@
 		0034AD791BE4C5BE002E5334 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TodoSwift/TodoSwift.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

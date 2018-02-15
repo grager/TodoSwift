@@ -13,8 +13,3 @@
 "todo_list.filter.all" = "All";
 "todo_list.filter.active" = "Active";
 "todo_list.filter.completed" = "Completed";
-
-"accessibility.todo_list.tasks_list" = "Tasks list";
-"accessibility.todo_list.create_new_task_textfield" = "Create new task";
-"accessibility.todo_list.mark_as_completed_button" = "Mark task `%@` as completed";
-"accessibility.todo_list.clear_completed_tasks" = "Clear completed tasks";

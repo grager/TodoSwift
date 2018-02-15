@@ -1,6 +1,17 @@
 TodoSwift
 =========
 
+## What's new in the forked project
+
+Project forked by Guillaume Rager to have:
+
+- Source code changes to Swift 3.2
+- Removed the framework target.
+
+
+
+## PREVIOUS README
+
 ![ScreenShot](https://raw.github.com/cyrilchandelier/TodoSwift/master/Assets/todoswift_1.png) - 
 ![ScreenShot](https://raw.github.com/cyrilchandelier/TodoSwift/master/Assets/todoswift_2.png) - 
 ![ScreenShot](https://raw.github.com/cyrilchandelier/TodoSwift/master/Assets/todoswift_3.png)
@@ -13,7 +24,7 @@ The full project is available in the ```Code``` folder.
 
 ## What's in there?
 
-- Swift 2 code
+- Swift 3.2 code
 - App Group to share data between the main app and the extension(s)
 - Dynamic Framework to limit code repetition and share code between the main app and the extension(s), mainly the Core Data Stack with the models
 - Today Extension

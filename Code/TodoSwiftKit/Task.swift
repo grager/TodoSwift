@@ -30,11 +30,11 @@ public class Task: NSManagedObject
     
     public class func activePredicate() -> NSPredicate
     {
-        return NSPredicate(format: "%K == %@", TaskCompletedAttribute, false)
+        return NSPredicate(format: "%K == %@", TaskCompletedAttribute, false as CVarArg)
     }
     
     public class func completedPredicate() -> NSPredicate
     {
-        return NSPredicate(format: "%K == %@", TaskCompletedAttribute, true)
+        return NSPredicate(format: "%K == %@", TaskCompletedAttribute, true as CVarArg)
     }
 }

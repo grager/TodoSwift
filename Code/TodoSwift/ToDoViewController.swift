@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreData
-import TodoSwiftKit
-import TodoSwiftAccessibility
 
 
 class ToDoViewController: UITableViewController, NSFetchedResultsControllerDelegate, UITextFieldDelegate, ToDoCellDelegate
@@ -22,7 +20,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     @IBOutlet var itemsCountLabel: UILabel!
     
     // Data
-    private var frc: NSFetchedResultsController!
+    private var frc: NSFetchedResultsController<NSFetchRequestResult>!
     private var predicate: NSPredicate? {
         didSet {
             refreshData()
@@ -45,13 +43,20 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         
         // i18n
         taskTextField.placeholder = NSLocalizedString("todo_list.task_placeholder", comment: "Add task placeholder")
-        segmentedControl.setTitle(NSLocalizedString("todo_list.filter.all", comment: "Filter: All"), forSegmentAtIndex: 0)
-        segmentedControl.setTitle(NSLocalizedString("todo_list.filter.active", comment: "Filter: Active"), forSegmentAtIndex: 1)
-        segmentedControl.setTitle(NSLocalizedString("todo_list.filter.completed", comment: "Filter: Completed"), forSegmentAtIndex: 2)
+        segmentedControl.setTitle(NSLocalizedString("todo_list.filter.all", comment: "Filter: All"), forSegmentAt: 0)
+        segmentedControl.setTitle(NSLocalizedString("todo_list.filter.active", comment: "Filter: Active"), forSegmentAt: 1)
+        segmentedControl.setTitle(NSLocalizedString("todo_list.filter.completed", comment: "Filter: Completed"), forSegmentAt: 2)
         
+        taskTextField.addTarget(self, action: #selector(enterPressed), for: .editingDidEndOnExit)
+
         // Refresh
         refreshData()
         refreshUI()
+    }
+    
+    func enterPressed(){
+        //do something with typed text if needed
+        taskTextField.resignFirstResponder()
     }
     
     // MARK: - Data management
@@ -59,7 +64,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     func refreshData()
     {
         // Prepare fetch request
-        let fetchRequest = NSFetchRequest(entityName: TaskEntityName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: TaskEntityName)
         fetchRequest.sortDescriptors = Task.sortDescriptors()
         fetchRequest.predicate = predicate
         
@@ -82,7 +87,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     
     func refreshUI()
     {
-        if !isViewLoaded() {
+        if !isViewLoaded {
             return
         }
         
@@ -96,15 +101,15 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     func refreshTableFooterView()
     {
         // Query only active tasks
-        let itemsCount = TaskService.taskList(Task.activePredicate()).count
+        let itemsCount = TaskService.taskList(predicate: Task.activePredicate()).count
         
         // Build attributed string
         let itemsCountString = NSMutableAttributedString()
-        itemsCountString.appendAttributedString(NSAttributedString(string: String(itemsCount), attributes: [
-            NSFontAttributeName : UIFont.boldSystemFontOfSize(14.0)
+        itemsCountString.append(NSAttributedString(string: String(itemsCount), attributes: [
+            NSFontAttributeName : UIFont.boldSystemFont(ofSize: 14.0)
             ]))
-        itemsCountString.appendAttributedString(NSAttributedString(string: (itemsCount == 1 ? NSLocalizedString("todo_list.item_left", comment: "Singular items left") : NSLocalizedString("todo_list.items_left", comment: "Plural items left")), attributes: [
-            NSFontAttributeName : UIFont.systemFontOfSize(14.0)
+        itemsCountString.append(NSAttributedString(string: (itemsCount == 1 ? NSLocalizedString("todo_list.item_left", comment: "Singular items left") : NSLocalizedString("todo_list.items_left", comment: "Plural items left")), attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 14.0)
             ]))
         
         // Update label
@@ -116,7 +121,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
     
     // MARK: - UITableViewDataSource methods
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    override func numberOfSections(in tableView: UITableView) -> Int
     {
         guard let sections = frc.sections else {
             return 0
@@ -124,77 +129,126 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
         return sections.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let sectionInfo = frc.sections![section] as NSFetchedResultsSectionInfo
         return sectionInfo.numberOfObjects
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let task = frc.objectAtIndexPath(indexPath) as! Task
+        let task = frc.object(at: indexPath as IndexPath) as! Task
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(ToDoCellIdentifier) as! ToDoCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ToDoCellIdentifier) as! ToDoCell
         cell.delegate = self
-        cell.configureWithTask(task)
+        cell.configureWithTask(task: task)
         
         return cell
     }
     
     // MARK: - UITableViewDelegate methods
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
     {
         return true
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle
     {
-        return UITableViewCellEditingStyle.Delete
+        return UITableViewCellEditingStyle.delete
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
     {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            let task = frc.objectAtIndexPath(indexPath) as! Task
-            TaskService.deleteTask(task)
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            let task = frc.object(at: indexPath as IndexPath)
+            TaskService.deleteTask(task: task as! Task)
         }
     }
     
     // MARK: - NSFetchedResultsControllerDelegate methods
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    private func controllerDidChangeContent(controller: NSFetchedResultsController<NSFetchRequestResult>)
     {
         refreshUI()
     }
     
     // MARK: - UITextFieldDelegate methods
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
-    {
-        guard let content = textField.text else {
-            return false
-        }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        NSLog("textFieldDidEndEditing")
+
+
+    
+    //private func textFieldShouldReturn(textField: UITextField) -> Bool
+    //{
+      //  NSLog("textFieldShouldReturn")
+        //return true
         
+        let content = self.taskTextField.text
+    
         // Create a task if entered string is not empty
-        if content.characters.count > 0 {
-            TaskService.createTask(content)
+        
+        if((content) != nil)
+        {
+            // we will create a task and then push it the service
+            let createdTask = TaskService.createTask(content: content!)
+            
+            let createTaskAsDictionary = ["title":createdTask?.label ?? "empty","completed":false] as [String : Any]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: createTaskAsDictionary, options: .prettyPrinted)
+                
+                let requestURL = URL.init(string: "rest/todos")
+                let request = URLRequest.init(url: requestURL!)
+                
+                let uploadtask = URLSession.shared.uploadTask(with: request, from: jsonData) { data, response, error in
+                    if let error = error {
+                        print ("error: \(error)")
+                        return
+                    }
+                    guard let response = response as? HTTPURLResponse,
+                        (200...299).contains(response.statusCode) else {
+                            print ("server error")
+                            return
+                    }
+                    if let mimeType = response.mimeType,
+                        mimeType == "application/json",
+                        let data = data,
+                        let dataString = String(data: data, encoding: .utf8) {
+                        print ("got data: \(dataString)")
+                    }
+                }
+                uploadtask.resume()
+
+                // here "jsonData" is the dictionary encoded in JSON data
+                
+                //let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
+                // here "decoded" is of type `Any`, decoded from JSON data
+                
+                // you can now cast it with the right type
+                //if let dictFromJSON = decoded as? [String:String] {
+                    // use dictFromJSON
+                //}
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         // Reset text field
-        textField.text = ""
+        taskTextField.text = ""
         
         // Close keyboard
-        textField.resignFirstResponder()
+        taskTextField.resignFirstResponder()
         
-        return true
+        refreshData()
     }
     
     // MARK: - ToDoCellDelegate methdos
     
     func toDoCell(cell: ToDoCell, didToggleCompletionForTask task: Task)
     {
-        TaskService.toggleTask(task)
+        TaskService.toggleTask(task: task)
     }
     
     func toDoCell(cell: ToDoCell, didEditContent content: String?, forTask task: Task)
@@ -203,7 +257,7 @@ class ToDoViewController: UITableViewController, NSFetchedResultsControllerDeleg
             return
         }
         
-        TaskService.updateTask(task, content: content)
+        TaskService.updateTask(task: task, content: content)
     }
     
     // MARK: - UI Actions
